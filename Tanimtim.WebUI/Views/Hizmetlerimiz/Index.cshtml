@@ -1,0 +1,36 @@
+﻿@model List<Tanimtim.WebUI.Models.Entities.Hizmetlerimiz>
+@{
+    ViewBag.Title = "Index";
+}
+<link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<h2>Index</h2>
+<a href="/Hizmetlerimiz/Ekle" class="btn btn-success">Yeni Hizmet Ekle</a>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Başlık</th>
+                    <th>İçerik</th>
+                    <th>ResimUrl</th>
+                    <th>İşlemlerimiz</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hizmet in Model) 
+                {
+                <tr>
+                    <td>@hizmet.Id</td>
+                    <td>@hizmet.Baslik</td>
+                    <td>@Html.Raw(hizmet.Icerik)</td>
+                    <td>
+                    <img style="width:100px; height:100px" src="@hizmet.ResimUrl" /></td>
+                    <td><a href="/Hizmetlerimiz/Update/@hizmet.Id">Güncelle</a></td>
+                </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+</div>

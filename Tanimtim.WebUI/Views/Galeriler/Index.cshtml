@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Tanimtim.WebUI.Models.Entities.Galeriler>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Yeni Oluştur", "Ekle")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ResimAciklama)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResimUrl)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.Raw(item.ResimAciklama)
+            </td>
+            <td>
+                <img src="@item.ResimUrl" style="width:30px;height:30px" />
+            </td>
+            <td>
+                @Html.ActionLink("Güncelle", "Guncelle", new { id = item.Id }) |
+                <a href="javascript:Delete(@item.Id)" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    function Delete(id) {
+        var kontrol = confirm(id + " nolu kaydı silmek istediginize emin misiniz");
+        if (kontrol == true) {
+            var data = { Id: id };
+            $.ajax({
+                url: "/Galeriler/Delete",
+                type: "Post",
+                data: JSON.stringify(data),
+                contentType: 'application/json;charset=UTF-8',
+                success: function (e) {
+                    if (e == true) {
+                        window.location.reload();
+                    }
+                }
+
+            });
+        }
+    }
+</script>

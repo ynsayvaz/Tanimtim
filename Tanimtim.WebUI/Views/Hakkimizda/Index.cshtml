@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Tanimtim.WebUI.Models.Entities.Hakkimizda>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Yeni Oluştur", "Ekle")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Baslik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Icerik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResimUrl)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baslik)
+            </td>
+            <td>
+                @Html.Raw(item.Icerik)
+            </td>
+            <td>
+                <img src="@item.ResimUrl" style="width:30px;height:30px" alt="@item.Baslik" />
+            </td>
+            <td>
+                @Html.ActionLink("Güncelle", "Guncelle", new { id = item.Id }) |
+                <a href="javascript:Delete(@item.Id)" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    function Delete(id) {
+        var kontrol = confirm(id + " nolu kaydı silmek istediginize emin misiniz");
+        if (kontrol == true) {
+            var data = { Id: id };
+            $.ajax({
+                url: "/Hakkimizda/Delete",
+                type: "Post",
+                data: JSON.stringify(data),
+                contentType: 'application/json;charset=UTF-8',
+                success: function (e) {
+                    if (e == true) {
+                        window.location.reload();
+                    }
+                }
+
+            });
+        }
+    }
+</script>

@@ -1,0 +1,23 @@
+﻿@model Tanimtim.WebUI.Models.Entities.Hizmetlerimiz
+@{
+    ViewBag.Title = "Update";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Hizmetleri Güncelle</h2>
+
+<form action="/Hizmetlerimiz/Update" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+    <div class="form-group">
+        <label for="Baslik">Başlık</label>
+        <input type="text" class="form-control" id="Baslik" name="Baslik" value="@Model.Baslik">
+    </div>
+    <div class="form-group">
+        <label for="Baslik">İçerik</label>
+        <textarea class="form-control" name="Icerik" id="Icerik">@Model.Icerik</textarea>
+    </div>
+    <div class="form-group">
+        <label for="Baslik">Resim Url</label>
+        <input type="file" id="ResimUrl" name="resimUrl" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

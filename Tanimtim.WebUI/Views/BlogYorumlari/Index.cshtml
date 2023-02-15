@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Tanimtim.WebUI.Models.DTO.BlogYorumlariDTO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Yeni Oluştur", "Ekle")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.YorumAciklama)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdSoyad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YorumTarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AktifMi)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.YorumAciklama)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdSoyad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YorumTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AktifMi)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Guncelle", new { id=item.Id }) |
+                <a href="#" id="btnSil" name="btnSil" onclick="javascript: Delete(@item.Id)">Sil</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    function Delete(id) {
+        var kontrol = confirm(id + " nolu kaydı silmek istediginize emin misiniz");
+        if (kontrol == true) {
+            var data = { Id: id };
+            $.ajax({
+                url: "/BlogYorumlari/Delete",
+                type: "Post",
+                data: JSON.stringify(data),
+                contentType: 'application/json;charset=UTF-8',
+                success: function (e) {
+                    if (e == true) {
+                        window.location.reload();
+                    }
+                }
+
+            });
+        }
+    }
+</script>
